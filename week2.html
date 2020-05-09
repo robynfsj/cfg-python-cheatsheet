@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Notes from the second week of the Introduction to Python Programming course run by Code First: Girls. Topics covered include: user input, importing modules, for loops and functions.">
+  <meta name="keywords" content="python, cheatsheet">
+  <title>Python Week 2</title>
+</head>
+
+<body>
+  <h1>
+    Python Week 2&#8212;problem solving using inputs, loops and functions
+  </h1>
+    <p>
+      Topics covered this week:
+      <ol>
+        <li>User input</li>
+        <li>Importing modules</li>
+        <li>Problem solving with Turtle</li>
+        <li>For loops</li>
+        <li>Functions</li>
+      </ol>
+    </p>
+
+  <h2>1. User input</h2>
+    <p>
+      A program might require information from the user or a database in order to run. Python contains a built-in <a href="#functions">function</a> that we can use to get the required information from a user. This function is:
+    </p>
+    <code>input()</code>
+    <p>
+      When this function is run, Python will pause program execution until the user replies with the keyboard. You can add a prompt as an argument (an argument is what you put in the brackets that follow the function name&#8212;see <a href="#functions">5. Functions</a>). This could be a question. For example, you could ask the user where they were born like this:
+    </p>
+    <code>input("Where were you born? ")</code>
+    <p>
+      The user would then be required to type a reply into the console before the rest of the program runs. In the following example, the first line would run, the user would then type in a reply into the console and then the second line would run:
+    </p>
+    <code>
+      place_of_birth = input("Where were you born? ")<br>
+      <br>
+      print("That's great to hear you were born in " + place_of_birth + ". I wasn't born, I was created on a computer by Robyn.")
+    </code>
+    <p>In the Run window, this is what would happen (in green is what the user typed):</p>
+    <img src="../images/input1.png" alt="run window showing output of from code using the input function">
+    <p>
+      Whatever the user types in response to the <code>input()</code> function will be a string, even if they type a number in. If you want an integer to be returned, this must be specified in the code by using the <code>int()</code> function:
+    </p>
+    <code>
+      friends = int(input('How many friends are over at your house? '))<br>
+      pizzas = friends * 0.5 + 0.5<br>
+      <br>
+      print("In order to feed you and your {} friends, you need to buy {} pizzas.".format(friends, pizzas))
+    </code>
+
+  <h2>2. Importing modules</h2>
+    <p>
+      Modules are Python files containing a set of prewritten functions&#8212;they are basically scripts. It could be some code that someone else has written and you want to reuse in your new program. Or maybe you have written a complicated function that you want to use in several programs but don't want to copy and paste it into each one. Modules must first be imported into your program before you can call the functions they contain. To do this, type the word "import" followed by the module name (the module must be in the same directory).
+    </p>
+    <code>import turtle</code>
+    <p>
+      Once you have imported a module, you can use its functions. In our course, this was demonstrated using using the Turtle module, which is an old program that draws basic shapes and was originally created to teach children some coding. It's not important to learn the Turtle function names, what they do or anything like that. This is just one module that is used here to demonstrate how a module works.
+    </p>
+
+  <h2>3. Problem solving with Turtle</h2>
+  <p>
+    In the session we used Turtle to draw some basic squares and triangles. We learnt how to colour them in, alter their size etc. The following is an example of the code used to draw a triangle and colour it in:
+  </p>
+  <code>
+    import turtle<br>
+    <br>
+    side_length = 200<br>
+    angle = 120<br>
+    <br>
+    turtle.color("blue", "pink")<br>
+    turtle.begin_fill()<br>
+    <br>
+    turtle.forward(side_length)<br>
+    turtle.right(angle)<br>
+    <br>
+    turtle.forward(side_length)<br>
+    turtle.right(angle)<br>
+    <br>
+    turtle.forward(side_length)<br>
+    turtle.right(angle)<br>
+    <br>
+    turtle.end_fill()<br>
+    <br>
+    turtle.done()
+  </code>
+  <p>
+    In the code used above, you can see that the following block of code is repeated three times, once for each side of the triangle:
+  </p>
+  <code>
+    turtle.forward(side_length)<br>
+    turtle.right(angle)
+  </code>
+  <p>
+    This is a bit verbose. A more terse way of writing this would be to use <strong>for loops</strong>, which are covered in the following section.
+  </p>
+
+  <h2>4. For loops</h2>
+  <p>
+    For loops allow you to repeat the same block of code a number of times. They look like this:
+  </p>
+  <code>
+    for variable_name in range():<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;body
+  </code>
+  <p>
+    They begin with a <strong>for</strong> operator, followed by a variable name chosen by the user, followed by an <strong>in</strong> operator and a set of values. On the following line goes the <strong>body</strong>, which <em>must</em> be indented by 4 spaces. The body could contain any function you want repeating.
+  </p>
+  <p>
+    The set of values can take the <code>range()</code> function. This tells the loop how many times to repeat. It starts counting from 0 (rather than 1). The following code instructs Python to print out a list of 5 numbers. As it starts counting from 0, the five numbers are 0, 1, 2, 3, and 4.
+  </p>
+  <code>
+    for number in range(5):<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print(number)<br>
+    <br>
+    0<br>
+    1<br>
+    2<br>
+    3<br>
+    4
+  </code>
+  <p>
+    As previously mentioned, the <strong>for loop</strong> can be used in the Turtle module to make the code more terse:
+  </p>
+  <code>
+    import turtle<br>
+    <br>
+    length = 200<br>
+    angle = 90<br>
+    <br>
+    turtle.color("darkcyan", "lightcoral")<br>
+    turtle.begin_fill()<br>
+    <br>
+    for side in range(4):<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;turtle.forward(length)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;turtle.left(angle)<br>
+    <br>
+    turtle.end_fill()<br>
+    <br>
+    turtle.done()
+  </code>
+  <p>
+    We can combine the for loop with the <code>input()</code> function we learnt earlier to ask the user about the type of shape they want to draw:
+  </p>
+  <code>
+    import turtle<br>
+    <br>
+    no_sides = int(input("How many sides do you want your shape to have? "))<br>
+    length = int(input("How big do you want your shape to be? Specify the<br> length of one side in number of pixels: "))<br>
+    angle = 360 / no_sides<br>
+    <br>
+    turtle.color("darkcyan", "lightcoral")<br>
+    turtle.begin_fill()<br>
+    <br>
+    for side in range(no_sides):<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;turtle.forward(length)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;turtle.left(angle)<br>
+    <br>
+    turtle.end_fill()<br>
+    turtle.done()
+  </code>
+  <p>
+    Now that we have created a shape, we might want to create it again later on in our program. We could just copy and paste the code again. However, this would be a lengthy way of doing things. A better way would be to define the whole block of code for a certain shape as a function.
+  </p>
+
+  <h2 id="functions">5. Functions</h2>
+  <h3>5.1 Introduction to functions</h3>
+  <p>
+    Functions are reuseable blocks of code. We have seen that modules contain functions that we can use. But we can also define our own.
+  </p>
+  <code>
+    def function_name (arguments):<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;body
+  </code>
+  <p>
+    To create a function we use the <strong>def</strong> operator. This is follwed by a user-defined function name. This is what you will use to call the function later (e.g. <code>my_new_function()</code>). The <strong>arguments</strong> are what you pass to the function. In the Turtle module, for example, you could have the side length as an argument. As with <strong>for loops</strong> the following line <em>must</em> be indented by exactly 4 spaces. The body contains the code that you want the function to carry out.
+  </p>
+  <h3>5.2 Creating functions to draw specific shapes in turtle</h3>
+  <p>
+    We can once again use the Turtle module to demonstrate. Earlier, we wrote out the code required to draw a square. But if we know we might want to draw several squares in our program, we could assign all of the code used to create a square to the function <code>square()</code>.
+  </p>
+  <code>
+    def square(side_length):<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;angle = 90<br>
+    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;for side in range(4):<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;turtle.forward(side_length)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;turtle.left(angle)<br>
+    <br>
+    turtle.done()
+  </code>
+  <p>
+    We can make it a little more interesting and add colour arguments to the <code>square()</code> function in addition to side length.
+  </p>
+  <code>
+    import turtle<br>
+    <br>
+    def square(side_length, line_colour, fill_colour):<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;angle = 90<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;turtle.color(line_colour, fill_colour)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;turtle.begin_fill()<br>
+    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;for side in range(4):<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;turtle.forward(side_length)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;turtle.left(angle)<br>
+    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;turtle.end_fill()<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;turtle.done()<br>
+    <br>
+    square(100, "darkcyan", "palevioletred")
+  </code>
+  <h3>5.3 Creating functions with the <code>return</code> operator</h3>
+  <p>
+    The <code>return</code> operator enables values to be returned from a function. You could use it to create functions that calculate sums:
+  </p>
+  <code>
+    def add(num_1, num_2):<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<strong>return</strong> num_1 + num_2<br>
+    <br>
+    total_height = add(182, 160)<br>
+    print(total_height)<br>
+    <br>
+    342
+  </code>
+  <p>
+    The calculations can be more complicated than simple addition. The following example was an exercise we were asked to complete as part of the course. It is a function designed to calculate the area of a circle:
+  </p>
+  <code>
+    def circle_area(radius):<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;area = 3.14 * (radius ** 2)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return(area)<br>
+    <br>
+    circle_1 = circle_area(9)<br>
+    print(circle_1)
+  </code>
+</body>
+
+</html>
