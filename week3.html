@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Notes from the third week of the Introduction to Python Programming course run by Code First: Girls. Topics covered include: comparison operators, logical operators and if statements.">
+  <meta name="keywords" content="python, cheatsheet">
+  <title>Python Week 3</title>
+</head>
+
+<body>
+  <h1>Python Week 3&#8212;decision making using logic and if statements</h1>
+  <p>
+    The step up was a little easier this week than last week. The operators and statements covered this week are actually quite straitforward and intuitive. Topics covered this week include:
+    <ol>
+      <li>Comparison and logical operators</li>
+      <li>If, else and elif statements</li>
+      <li>Practise of this weeks topics with the <em>random</em> library</li>
+    </ol>
+  <p>
+
+
+  <h2>1. Comparison and logical operators</h2>
+
+  <h3>1.1 Comparison operators</h3>
+  <p>
+    In week 1 we came across the arithmetic operators used in Python. Comparison operators can be used in a similar way but rather than getting Python to do some maths, it gets Python to compare two values and return a boolean value (<code>True</code> or <code>False</code>). The following comparison operators are used in Python:
+  </p>
+  <table>
+    <tr>
+      <th>Operator</th>
+      <th>Name</th>
+    </tr>
+    <tr>
+      <td><code>==</code></td>
+      <td>equal to</td>
+    </tr>
+    <tr>
+      <td><code>!=</code></td>
+      <td>not equal to</td>
+    </tr>
+    <tr>
+      <td><code>></code></td>
+      <td>greater than</td>
+    </tr>
+    <tr>
+      <td><code><</code></td>
+      <td>less than</td>
+    </tr>
+    <tr>
+      <td><code>>=</code></td>
+      <td>greater than or equal to</td>
+    </tr>
+    <tr>
+      <td><code><=</code></td>
+      <td>less than or equal to</td>
+    </tr>
+  </table>
+
+  <h4>Example 1</h4>
+  <code>
+    today = input("What day is it? ")<br>
+    <br>
+    is_monday = today == "Monday"<br>
+    <br>
+    print("Today is Monday: {}".format(is_monday))
+  </code>
+
+  <h4>Example 2</h4>
+  <code>
+    temperature = input("What is the temperature? ")<br>
+    <br>
+    is_freezing = float(temperature) <= 0.0<br>
+    <br>
+    print('The temperature is freezing: {}'.format(is_freezing))
+  </code>
+
+  <h4>Example 3</h4>
+  <code>
+    price = input("How much does the burger cost? ")<br>
+    <br>
+    is_price = float(price) <= 10<br>
+    <br>
+    print("Burger is within budget: {} ".format(is_price))
+  </code>
+
+  <h3>1.2 Logical operators</h3>
+  <p>
+    Logical operators are used to combine multiple statements. The following logical operators can be used in Python:
+  </p>
+  <table>
+    <tr>
+      <th>Operator</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td><code>and</code></td>
+      <td>returns <code>True</code> if both expressions are true</td>
+    </tr>
+    <tr>
+      <td><code>or</code></td>
+      <td>returns <code>True</code> if at least one expression is true</td>
+    </tr>
+    <tr>
+      <td><code>not</code></td>
+      <td>reverse the expression, returns <code>False</code> if the value is true</td>
+    </tr>
+  </table>
+
+  <h4>Example 1</h4>
+  <code>
+    mars_choice = input("Would you like to visit Mars? y/n ")<br>
+    is_willing = mars_choice == "y"<br>
+    <br>
+    affordable = input("Can you afford to visit Mars? y/n ")<br>
+    can_afford = affordable == "y"<br>
+    <br>
+    should_visit_mars = is_willing and can_afford<br>
+    <br>
+    print('You should visit Mars: {}'.format(should_visit_mars))
+  </code>
+
+  <h4>Example 2</h4>
+  <code>
+    price = input("How much does the burger cost? ")<br>
+    vegetarian = input("Is there a vegetarian option? (y/n) ")<br>
+    <br>
+    within_budget = float(price) <= 10.00<br>
+    has_vegetarian_option = vegetarian == "y"<br>
+    <br>
+    is_suitable = within_budget and has_vegetarian_option<br>
+    <br>
+    print("Restaurant meets criteria: {} ".format(is_suitable))
+  </code>
+
+
+  <h2>2. If, else and elif statements</h2>
+
+  <h3>2.1 If statements</h3>
+  <p>
+    <code>if</code> statements are used to run a block of code depending on whether a condition is true or false. Just like when functions are defined and when using <code>for</code> loops, the line following the <code>if</code> statement must be indented by four spaces (PyCharm or whichever IDE you are using should just do this for you).
+  </p>
+
+  <h4>Example 1</h4>
+  <code>
+    password = input("password: ")<br>
+    <br>
+    if password == "jumanji":<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print("Success!")
+  </code>
+
+  <h4>Example 2</h4>
+  <code>
+    price = input("How much does the burger cost? £")<br>
+    vegetarian = input("Is there a vegetarian option? (y/n) ")<br>
+    <br>
+    within_budget = float(price) <= 10.00<br>
+    has_vegetarian_option = vegetarian == "y"<br>
+    <br>
+    is_suitable = within_budget and has_vegetarian_option<br>
+    <br>
+    if is_suitable:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print("This restaurant is a great choice!")
+    <br>
+    if not is_suitable:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print("Probably not a good idea.")
+  </code>
+
+  <h3>2.2 Else statements</h3>
+  <p>
+    <code>else</code> statements are used with an <code>if</code> statement and are run if the <code>if</code> statement is false. It's adviseable to always include an <code>else</code> statement because it will catch any condition that might have been missed out in the preceeding code.
+  </p>
+
+  <h4>Example 1</h4>
+  <code>
+    password = input("password: ")<br>
+    <br>
+    if password == "jumanji":<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print('Success!')<br>
+    <br>
+    else:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print('Failure!')<br>
+  </code>
+
+  <h4>Example 2</h4>
+  <code>
+    meal_price = float(input("How much did the meal cost? £"))<br>
+    discount_choice = input("Do you have a discount code? (y/n)")<br>
+    <br>
+    discount_applicable = discount_choice == 'y'<br>
+    <br>
+    if discount_applicable:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;meal_price = 90 / 100 * meal_price<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print("Discount applied.")<br>
+    <br>
+    else:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print("No discount.")<br>
+    <br>
+    print("Total cost: £{}".format(meal_price))
+  </code>
+
+  <h3>2.3 Elif statements</h3>
+  <p>
+    <code>elif</code> statements are used in the place of <code>if</code> when you are adding in another <code>if</code> condition. It basically asks "if the previous statement is false then try this one". You can use as many <code>elif</code> statements as you want. When using multiple statements, it is very important to be careful about the ordering of the statements. Remember to still finish up with an <code>else</code> statement.
+  </p>
+
+  <h4>Example 1</h4>
+  <code>
+    dog_size = int(input("How big is the dog in kilograms? "))<br>
+    <br>
+    if dog_size > 75:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print("That is a big dog.")<br>
+    <br>
+    elif dog_size < 10:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print("That dog could fit in my pocket!")<br>
+    <br>
+    elif dog_size < 25:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print("That is a small dog.")<br>
+    <br>
+    else:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print("That is an average dog. How boring.")<br>
+  </code>
+
+  <h4>Example 2</h4>
+  <code>
+    temperature = int(input("What is the temperature of the oven? "))<br>
+    <br>
+    if temperature > 200:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print("The oven is too hot!")<br>
+    <br>
+    elif temperature < 150:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print("The oven is too cold!")<br>
+    <br>
+    elif temperature == 180:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print("The oven is at the perfect temperature.")<br>
+    <br>
+    else:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print("The temperature is close enough.")
+  </code>
+
+
+  <h2>3. Practise of this weeks topics with the <em>random</em> library</h2>
+
+  <h3>3.1 <code>random_int()</code> function</h3>
+  <p>
+    A library is a collection of modules. In this week's class we imported the <em>random</em> library, which contains random data that we can have a play with in order to put this weeks learning into practise. Just like a module, a library must be imported before it can be used. One important function we are using from the <em>random</em> library is the <code>random_int()</code>function.
+  </p>
+
+  <h4>Example 1</h4>
+  <code>
+    import random<br>
+    <br>
+    random_integer = random.randint(1, 100)<br>
+    <br>
+    print(random_integer)
+  </code>
+
+  <h4>Example 2</h4>
+  <code>
+    import random<br>
+    <br>
+    sides = int(input("How many sides does the die have? "))<br>
+    <br>
+    random_integer = random.randint(1, sides)<br>
+    <br>
+    print("You rolled a {}.".format(random_integer))
+  </code>
+
+  <h3>3.2 Coin flip exercise</h3>
+  <p>
+    This program uses random to simulate a coin flip. To finish the program you will need to add the following:
+    <ul>
+      <li>If the random coin flip matches the choice input by the user then they win</li>
+      <li>Otherwise, if the random coin flip does not match the choice input by the user then they lose</li>
+    </ul>
+  </p>
+
+  <h4>Solution</h4>
+  <code>
+    import random<br>
+    <br>
+    def flip_coin():<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;random_number = random.randint(1, 2)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;if random_number == 1:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;side = "heads"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;else:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;side = "tails"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return side<br>
+    <br>
+    choice = input("heads or tails: ")<br>
+    result = flip_coin()<br>
+    <br>
+    print("The coin landed on {}".format(result))<br>
+    <br>
+    if choice == result:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print("You win!")<br>
+    <br>
+    else:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print("You loose.")
+  </code>
+
+  <h3>3.3 Rock, paper, scissors exercise</h3>
+  <p>
+    This program simulates rock, paper, scissors. The first winning condition has been added. To finish the program you'll need to add all of the other winning and losing conditions.
+  </p>
+
+  <h4>Solution</h4>
+  <code>
+    import random<br>
+    <br>
+    def random_choice():<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;choice_number = random.randint(1, 3)<br>
+    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;if choice_number == 1:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;choice = "rock"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;elif choice_number == 2:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;choice = "scissors"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;else:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;choice = "paper"<br>
+    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return choice<br>
+    <br>
+    my_choice = input("Choose rock, scissors or paper: ")<br>
+    opponent_choice = random_choice()<br>
+    <br>
+    print("Your opponent chose {}".format(opponent_choice))<br>
+    <br>
+    if my_choice == "rock" and opponent_choice == "scissors":<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print("You win!")<br>
+    <br>
+    elif my_choice == "paper" and opponent_choice == "rock":<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print("You win!")<br>
+    <br>
+    elif my_choice == "scissors" and opponent_choice == "paper":<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print("You win!")<br>
+    <br>
+    elif my_choice == opponent_choice:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print("It's a draw!")<br>
+    <br>
+    else:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print("You loose!")
+  </code>
+
+  <h3>3.4 Roulette exercise</h3>
+  <p>Ask the user to enter the following three things using <code>input()</code>:</p>
+  <ul>
+    <li>The amount they want to bet</li>
+    <li>A colour (red or black)</li>
+    <li>A number between 1 and 100</li>
+  </ul>
+  <p>After generating a random number and colour:</p>
+  <ul>
+    <li>If the colour matches, the users keeps the amount that was bet</li>
+    <li>If the number matches, the users wins double the amount that was bet</li>
+    <li>If the colour and number matches, the users wins 100 times the amount that was bet</li>
+    <li>When neither the colour or number matches the user wins 0</li>
+    <li>Output the amount the user won</li>
+  </ul>
+  <p>The following code will generate a random number and colour:</p>
+  <code>
+    import random<br>
+    <br>
+    def colour():<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;random_number = random.randint(1, 2)<br>
+    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;if random_number == 1:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;colour = "red"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;else:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;colour = "black"<br>
+    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return colour<br>
+    <br>
+    random_number = random.randint(1, 100)<br>
+    random_colour = colour()<br>
+  </code>
+
+  <h4>Solution</h4>
+  <code>
+    import random<br>
+    <br>
+    bet = float(input("How much do you want to bet? £"))<br>
+    input_colour = input("Red or black? ")<br>
+    number = int(input("Pick a number between 1 and 100: "))<br>
+    <br>
+    def colour():<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;random_number = random.randint(1, 2)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;if random_number == 1:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;colour = "red"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;else:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;colour = "black"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;return colour<br>
+    <br>
+    random_number = random.randint(1, 100)<br>
+    random_colour = colour()<br>
+    <br>
+    # if colour and number matches<br>
+    if random_colour == input_colour and random_number == number:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;prize = bet * 100<br>
+    <br>
+    # if number matches<br>
+    elif random_number == number:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;prize = bet * 2<br>
+    <br>
+    # if colour matches<br>
+    elif random_colour == input_colour:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;prize = bet<br>
+    <br>
+    # no match<br>
+    else:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;prize = 0.00<br>
+    <br>
+    print("Colour: {}".format(random_colour))<br>
+    print("Number: {}".format(random_number))<br>
+    print("You receive £{}.".format(prize))
+  </code>
+</body>
+</html>
