@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Notes from the forth week of the Introduction to Python Programming course run by Code First: Girls. Topics covered include lists and dictionaries.">
+  <meta name="keywords" content="python, cheatsheet">
+  <title>Python Week 4</title>
+</head>
+
+<body>
+  <h1>Python Week 4&#8212;lists and dictionaries</h1>
+  <p>
+    The step up was even easier again this week. Possibly because I  went into lists a little during my homework of the previous week. Topics covered this week include:
+    <ol>
+      <li>Lists</li>
+      <li>Dictionaries</li>
+    </ol>
+  </p>
+
+
+  <h2>1. Lists</h2>
+
+  <h3>1.1 Introduction to lists</h3>
+  <p>
+    Lists are an <em>ordered</em> collection of objects (which can be of one or more different data types, i.e. string, integer, float).They are enclosed in square brackets with each object separated by commas. Here are three different lists assigned to variables.
+  </p>
+  <code>
+    lottery_numbers = [4, 8, 15, 16, 23, 42]<br>
+    student_names = ["Robyn", "Josie", "Brigit", "Cameron"]<br>
+    person = ["Robyn", 30, "North Wales"]
+  </code>
+  <p>
+    Elements within a list can be accessed by their index. Remember that Python starts counting from 0 not 1.
+  </p>
+  <code>
+    student_names = ["Robyn", "Josie", "Brigit", "Cameron"]<br>
+    print(student_names[2])<br>
+    <br>
+    >>> Brigit
+  </code>
+
+  <h3>1.2 List functions</h3>
+  <p>
+    There are several functions designed for lists. They are pretty self-explanatory.
+  </p>
+  <table>
+    <tr>
+      <th>Function</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td><code>len()</code></td>
+      <td>returns length (number of elements in the list)</td>
+    </tr>
+    <tr>
+      <td><code>max()</code></td>
+      <td>returns maximum value in the list</td>
+    </tr>
+    <tr>
+      <td><code>min()</code></td>
+      <td>returns minimum value in the list</td>
+    </tr>
+    <tr>
+      <td><code>sum()</code></td>
+      <td>adds up all the values in the list</td>
+    </tr>
+    <tr>
+      <td><code>sorted()</code></td>
+      <td>sorts the list from minimum to maximum value</td>
+    </tr>
+    <tr>
+      <td><code>list(reversed())</code></td>
+      <td>sorts the list in reverse order from maximum to minimum value</td>
+    </tr>
+  </table>
+  <p>
+    Here is an example of these functions in action:
+  </p>
+  <code>
+    lottery_numbers = [23, 15, 4, 42, 8, 16]<br>
+    <br>
+    print(len(lottery_numbers))<br>
+    print(max(lottery_numbers))<br>
+    print(min(lottery_numbers))<br>
+    print(sorted(lottery_numbers))<br>
+    print(list(reversed(lottery_numbers)))<br>
+    <br>
+    >>> 6<br>
+    >>> 42<br>
+    >>> 4<br>
+    >>> [4, 8, 15, 16, 23, 42]<br>
+    >>> [42, 23, 16, 15, 8, 4]
+  </code>
+
+  <h3>1.3 The <code>append()</code> function and the <code>in</code> operator</h3>
+  <p>
+    The <code>append()</code> function can be used to add new elements to the list. The <code>in</code> operator is used to check if something is in the list.
+  </p>
+  <p>
+    The following is an example of using the <code>in</code> operator to check is a student is in a class.
+  </p>
+  <code>
+    student_name = input("Which student are you looking for? ")<br>
+    students = ["Robyn", "Josie", "Brigit", "Cameron"]<br>
+    <br>
+    if student_name in students:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print('{} is in the class'.format(student_name))<br>
+    else:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print('{} is not in the class'.format(student_name))<br>
+    <br>
+    >>> Which student are you looking for? Rachel<br>
+    >>> Rachel is not in the class
+  </code>
+  <p>
+    The student Rachel isn't in the class so the following shows how you would use the <code>append()</code> function to add her in.
+  </p>
+  <code>
+    students = ["Robyn", "Josie", "Brigit", "Cameron"]<br>
+    student_name = input("What is the name of the new student? ")<br>
+    <br>
+    students.append(student_name)<br>
+    print(students)<br>
+    <br>
+    >>> What is the name of the new student? Rachel<br>
+    >>> ["Robyn", "Josie", "Brigit", "Cameron", "Rachel"]
+  </code>
+
+  <h3>1.4 Using <code>for</code> loops in lists</h3>
+  <p>
+    The lesson briefly covered this but didn't really go into it enough to know why it might be useful! Here is an example of what you could do with it.
+  </p>
+  <code>
+    student_names = ["Robyn", "Josie", "Brigit", "Cameron"]<br>
+    <br>
+    for each_student in student_names:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;print(student_name)<br>
+    <br>
+    >>> Robyn<br>
+    >>> Josie<br>
+    >>> Brigit<br>
+    >>> Cameron
+  </code>
+
+
+  <h2>2. Dictionaries</h2>
+
+  <h3>2.1 Introduction to dictionaries</h3>
+  <p>
+    Dictionaries are a collection of labelled values. Each labelled value has a key, which is the label, and a value for it. In the following example, <strong>name</strong>, <strong>age</strong> and <strong>home</strong> are the keys (i.e. the label names) and <strong>Robyn</strong>, <strong>30</strong> and <strong>North Wales</strong> as their associated values.
+  </p>
+  <code>
+    person = {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;"name": "Robyn",<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;"age": 30,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;"home": "North Wales"<br>
+    }
+  </code>
+  <p>
+    Values in a dictionary can be accessed by refering to their key. For example, to retrieve the age of the person above, you would use: <code>print(person[age])</code>.
+  </p>
+
+  <h3>2.2 Dictionaries in lists</h3>
+  <p>
+    According to the course notes, it is very common for dictionaries to appear inside lists. They look like this:
+  </p>
+  <code>
+    people = [<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;{"name": "Robyn", "age": 30},<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;{"name": "Josie", "age": 29},<br>
+    ]
+  </code>
