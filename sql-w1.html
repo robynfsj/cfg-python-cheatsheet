@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Notes from the first week of the
+  Introduction to Data Science and SQL Programming course run by Code First
+  Girls. Topics covered include: big data, databases and SQL syntax for coding
+  queries and building databases.">
+  <meta name="keywords" content="sql, cheatsheet">
+  <link rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+        integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+        crossorigin="anonymous">
+  <title>SQL Week 1</title>
+</head>
+
+<body>
+  <h1>SQL Week 1&#8212;introduction to big data, databases and SQL programming
+  language</h1>
+
+  <p>Topics covered:</p>
+  <ol>
+    <li>Introduction to big data, databases and SQL programming</li>
+    <li>What are databases and SQL?</li>
+    <li>Different types of data</li>
+    <li>SQL syntax&#8212;coding queries</li>
+    <li>SQL syntax&#8212;building a database</li>
+  </ol>
+
+
+
+
+  <h2>1. Introduction to big data, databases and SQL programming</h2>
+
+  <h3>1.1 What is big data?</h3>
+  <p>
+    Big data is a huge volume of structured or unstructured information. It is
+    usually a collection of information that is so large that it is difficult
+    to just search through, analyse or store without the use of some
+    programming. Data is captured and entered into a database where it is
+    stored. The data in the database can then be analysed. A database is often
+    represented by the image of a cylindrical container:
+  </p>
+  <i class="fas fa-database fa-10x"></i>
+  <p>
+    This course focuses on the database and storage aspects of data science.
+    The database is where the data is stored and we are learning to access and
+    process the data using the <strong>SQL</strong> (Structured Query Language)
+    programming language. SQL can be reffered to as either the individual
+    letters (so would be spoken as <emphasis>ess queue elle</emphasis>) or
+    as a word (sounding like the word <empasis>sequel</emphasis>).
+  </p>
+
+  <h3>1.2 How is big data used in tech?</h3>
+  <p>
+    Big data is often used in <strong>software engineering</strong> and in
+    <strong>data analysis</strong>.
+  </p>
+  <h4>Software engineering</h4>
+  <p>
+    In software engineering, the database supports the back end, which in turn
+    supports the front end:
+  </p>
+  <img src="images/layers_model.png" alt="diagram of front end, back end and
+  database with arrows going both ways between each">
+  <h4>Data science</h4>
+  <p>
+    In data science, SQL and databases are used only in certain steps of the
+    process. In the 6 step process illustrated below, SQL is used mainly in
+    steps 2, 3 and 4.
+  </p>
+  <img src="images/data_science_cycle.png" alt="diagram of the data science
+  cycle">
+
+  <h3>1.3 Job roles that use SQL</h3>
+  <p>
+    There are numerous different job roles that would benefit from knowledge of
+    SQL and databases. A few of these are listed in the image below:
+  </p>
+  <img src="images/job_roles.png" alt="image of various job roles that use SQL
+  programming and database knowledge">
+  <p>
+    The first homework task of this week is to go through this list and identify
+    the job role closest to where I would like to be and then write a paragraph
+    about my desired job role and how I would like to use my data, SQL and DB
+    skills. The following is the paragraph I have written for this task:
+  </p>
+  <p>
+    MY PARAGRAPH GOES HERE
+  </p>
+
+
+
+
+  <h2>2. What are databases and SQL?</h2>
+
+  <h3>2.1 Databases</h3>
+  <p>
+    As detailed in section 1.1, databases are a virtual container where data is
+    stored and is often represented by the cylindrical storage container symbol.
+    A database contains lots of tables, which can relate to each other.
+  </p>
+  <img src="images/db_structure.png" alt="image showing the structure of a
+  database, which is lots of tables that are linked together">
+
+  <h3>2.2 SQL</h3>
+  <p>
+    As detailed in section 1.1, SQL is the programming language that is used to
+    access the information stored in the database. You can choose to extract
+    only the parts of the database that you are interested in:
+  </p>
+  <img src="images/sql_diagram.png" alt="image showing how SQL is used to query
+  a database">
+
+  <h3>2.3 The Relational Database Model (RDBM)</h3>
+  <p>
+    The RDBM is a type of management system for databases. A relational
+    database is just a type of database where data in one part of the database
+    matches with data in another part of the database. It is usually organised
+    in tables.
+  </p>
+  <p>
+    As would be expected, each table consists of columns and rows. The rows are
+    called <strong>records</strong> and each column is given a data type (e.g.
+    integer, character&#8212;see the following section).
+  </p>
+
+
+
+
+  <h2>3. Different types of data</h2>
+  <p>
+    Different data types can be used in SQL. You are required to declare the
+    type of data that a column will contain in a SQL table. The following table
+    details some of the different types of data that you can work with in SQL.
+    For a more comprehensive list, see the <a href="https://www.w3schools.com/sql/sql_datatypes.asp">
+    w3schools website</a>.
+  </p>
+  <table>
+    <tr>
+      <th>Data type</th>
+      <th>Details</th>
+    </tr>
+    <tr>
+      <td><code>CHAR(size)</code></td>
+      <td>
+        These are strings of a fixed length. The length of the string is typed
+        as an integer in the brackets where it says size, up to a maximum of 255
+        characters. (Recap&#8212;strings are mixed characters as they are typed
+        and can contain any combinations of numbers, letters and specical
+        characters, so long as they are supported by the language in use.) E.g.
+        <code>CHAR(50)</code> would be a string with 50 characters. If any other
+        number of characters is entered, it will return an error.
+      </td>
+    </tr>
+    <tr>
+      <td><code>VARCHAR(size)</code></td>
+      <td>
+        This is the same as the previous data type except a string of any length
+        will be accepted, up to a maximum of the number of characters specified
+        in the brackets.
+      </td>
+    </tr>
+    <tr>
+      <td><code>BINARY(size)</code></td>
+      <td>
+        This is the same as CHAR(size) so is fixed length. But rather than
+        taking any characters, it will only accept binary byte strings (so zeros
+        and ones). Here the <emphasis>size</emphasis> in brackets specifies the
+        number of bytes an entry must contain. Each binary digit is a bit and 8
+        bits make one byte.
+      </td>
+    </tr>
+    <tr>
+      <td><code>FLOAT(p)</code></td>
+      <td>
+        We encountered floats in Python. These are floating point numbers, which
+        are decimal numbers. The concept is a bit more complex than that but for
+        now just think of these as decimal numbers where <emphasis>p</emphasis>
+        is the amount of precision (or number of decimal places) required.
+      </td>
+    </tr>
+    <tr>
+      <td><code>INTEGER</code></td>
+      <td>
+        These are for whole numbers and can also be shortened to <code>INT</code>.
+        You can also add a size in brackets if you want a fixed number of digits.
+        This can be shortened to <code>INT</code>.
+      </td>
+    </tr>
+    <tr>
+      <td><code>DECIMAL(m, d)</code></td>
+      <td>
+        This is used for decimal numbers where the decimal point is fixed in
+        place (unlike floats where is can be moved). <emphasis>m</emphasis>
+        specifies the number of digits before the decimal point and <emphasis>d
+        </emphasis> specifies the number of digits after the decimal point.
+      </td>
+    </tr>
+    <tr>
+      <td><code>BOOLEAN</code></td>
+      <td>
+        This is used where values can be true or false. A value of 0 is used for
+        false and 1 is used for true. The shortened form <code>BOOL</code> also
+        works.
+      </td>
+    </tr>
+    <tr>
+      <td><code>DATE</code></td>
+      <td>
+        This is for a date in the format: YYYY-MM-DD.
+      </td>
+    </tr>
+    <tr>
+      <td><code>TIME</code></td>
+      <td>
+        This is used for time in the format: hh:mm:ss.
+      </td>
+    </tr>
+    <tr>
+      <td><code>TIMESTAMP</code></td>
+      <td>
+        This is for both the time and date in the format: YYYY-MM-DD hh:mm:ss.
+      </td>
+    </tr>
+  </table>
+
+
+
+
+  <h2>4. SQL syntax&#8212;coding queries</h2>
+  <h3>4.1 Basic queries</h3>
+  <p>
+    In order to get information (i.e. data) out of a database, we need to ask
+    it questions. This is called <strong>querying</strong>. These queries are
+    written in the programming language SQL. The syntax for a basic SQL query
+    asking for one column to be returned from a table is shown here:
+  </p>
+  <img src="images/sql_query.png" alt="image of an SQL query">
+  <p>
+    Here the keyword <strong>SELECT</strong> is used. Although SQL keywords are
+    not case sensitive, it is convention to write them in upper-case (e.g.
+    SELECT rather than select). This <strong>SELECT</strong> statement is often
+    followed by a list of columns (as their column names) that are to be
+    retrieved. A comma is placed between each column name (no comma is added
+    after the last column name). This is then followed by a <strong>FROM</strong>
+    statement, which specifies the name of the table that contains the columns
+    you have asked for.
+  </p>
+  <p>Here is an example of this query in action:</p>
+  <code>
+    SELECT<br>
+    column1,<br>
+    column2<br>
+    FROM<br>
+    table1;
+  </code>
+
+  <h3>4.2 Qualify the column name with a table name</h3>
+  <p>
+    When we write more complicated queries than the ones shown so far, we need
+    to keep track of which tables each column comes from. It can get especially
+    confusing if you are trying to get data from two different tables that each
+    have a column with the same name (e.g. a column called column1 existing in
+    both table1 and table2&#8212;you need to be able to specify which table you
+    are taking column1 from). It is good practice to always specify the table,
+    even if you are only using one table. To do this, the following syntax is
+    used:
+  </p>
+  <code>
+    SELECT<br>
+    table1.column1,<br>
+    table1.column2<br>
+    FROM<br>
+    table1;
+  </code>
+
+
+  <h3>4.3 Using aliases</h3>
+  <p>
+    In SQL, an alias is a temporary name you give to a table or column for a
+    particular query. It doesn't overide the actual name of the table or column
+    and only exists within the specific query that you assign it. They are used
+    to reduce the amount of typing required.
+  </p>
+  <p>
+    In the following example, several aliases are used. <strong>table1</strong>
+    has the alias <strong>t1</strong> and the columns are given the aliases
+    <strong>c1</strong> and <strong>c2</strong>.
+  </p>
+  <code>
+    SELECT<br>
+    t1.column1 AS c1,<br>
+    t1.column2 AS c2<br>
+    FROM<br>
+    table1 AS t1;
+  </code>
+
+  <h3>4.4 The wildcard</h3>
+  <p>
+    The wildcard (<strong>*</strong>) is used to select all the columns in a
+    table. It is considered bad practice to use it so it should only be used
+    when exploring data. The full syntax should be written in an query you want
+    to save for future use. The following shows how you would use it in a query:
+  </p>
+  <code>
+    SELECT *<br>
+    FROM table1
+  </code>
+
+
+
+
+  <h2>5. SQL syntax&#8212;building a database</h2>
+
+  <h3>5.1 Creating a database</h3>
+  <p>
+    Although you can create databases with SQL itself, it isn't something that
+    is done very often. To create a database and give it a name you would use
+    the following syntax:
+  </p>
+  <code>CREATE DATABASE database_name;</code>
+  <p>
+    Before you can do anything with any database, whether you want to add more
+    data to the database or query a database, you need to specify which database
+    you are wanting to use. This is done with the following syntax:
+  </p>
+  <code>USE database_name;</code>
+
+  <h3>5.2 Creating tables</h3>
+  <p>
+    To create a table, you must give the table a name and declare the names and
+    data types of each column in the table. The column details are put inside
+    brackets and each column is separated with a comma. The following syntax is
+    used to create a table:
+  </p>
+  <code>
+    CREATE TABLE table_name<br>
+    (column1 DATATYPE,<br>
+    column2 DATATYPE,<br>
+    column3 DATATYPE);
+  </code>
+
+  <h3>5.3 Null values</h3>
+  <p>
+    No entry in a table can be just left blank (this is the same as my experience
+    of R). If there is no data for a particular cell, it will be classified as
+    <code>NULL</code>. When you create a table, you can tell it whether to
+    accept null values for a particular column or not. This information is added
+    after the data type. In the following example, <emphasis>column1</emphasis>
+    is set to not accept null values while the other two columns will accept a
+    null value. If you later add records to this table and don't provide an
+    entry for the first column, an error would be returned.
+  </p>
+  <code>
+    CREATE TABLE table_name<br>
+    (column1 DATATYPE NOT NULL,<br>
+    column2 DATATYPE,<br>
+    column3 DATATYPE);
+  </code>
+
+  <h3>5.4 Populating tables</h3>
+  <p>
+    Once a table has been created using the above method, we can then start
+    adding entries into the table. You first have to specify which table you are
+    adding the entries to, then type out the column names of that table in
+    brackets, before adding the new values. Each record (row) is put in their
+    own brackets. Values in a record (i.e. the entry for each column for one row)
+    are separated by commas. The records (rows) are also separated by a comma.
+    The following code adds three records to a table that contains three columns.
+  </p>
+  <code>
+    INSERT INTO table_name<br>
+    (column1, column2, column3)<br>
+    VALUES<br>
+    (value1, value2, value3),<br>
+    (value1, value2, value3),<br>
+    (value1, value2, value3),<br>
+    (value1, value2, value3);<br>
+  </code>
+
+  <h3>5.5 Worked example</h3>
+  <p>
+    This might be a bit clearer to see with a worked example. The following code
+    is what I wrote in the lesson and creates then populates a table. Note that
+    the two dashes (<code>--</code>) can be used to write comments.
+  </p>
+  <code>
+    CREATE DATABASE bakery;<br>
+    USE DATABASE bakery;<br>
+    <br>
+    -- Create  table to contain details of the sweet products.<br>
+    CREATE TABLE sweet(<br>
+    id INT NOT NULL,<br>
+    item_name VARCHAR(50) NOT NULL,<br>
+    price FLOAT(2) NOT NULL<br>
+    );<br>
+    <br>
+    -- Populate the sweet table.<br>
+    INSERT INTO sweet<br>
+    (id, item_name, price)<br>
+    VALUES<br>
+    (1, 'doughnut', 0.5),<br>
+    (2, 'croissant', 0.75),<br>
+    (3, 'painauchocolat', 0.55),<br>
+    (4, 'cinnamon swirl', 0.45),<br>
+    (5, 'cannoli', 0.88),<br>
+    (6, 'apple tart', 1.12);<br>
+    <br>
+    -- Create a table for the savoury products.<br>
+    CREATE TABLE savoury(<br>
+    id INT NOT NULL,<br>
+    item_name VARCHAR(50) NOT NULL,<br>
+    price FLOAT(2),<br>
+    main_ingredient VARCHAR(50)<br>
+    );<br>
+    <br>
+    -- Populate the savoury table.<br>
+    INSERT INTO savoury<br>
+    (id, item_name, price, main_ingredient)<br>
+    VALUES<br>
+    (1, 'meat pie', 1.25, 'pork'),<br>
+    (2, 'sausage roll', 1, null),<br>
+    (3, 'pasty', 2.45, 'beef');<br>
+    <br>
+    -- Quickly check the tables have been created correctly.<br>
+    SELECT * FROM sweet;<br>
+    SELECT * FROM savoury;
+    </code>
+
+</body>
+
+</html>
