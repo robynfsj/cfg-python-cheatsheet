@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Notes from the second week of the
+  Introduction to Data Science and SQL Programming course run by Code First
+  Girls. Topics covered include: data retrieval, constraints, normalisation
+  and modification.">
+  <meta name="keywords" content="sql, cheatsheet">
+  <link rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+        integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+        crossorigin="anonymous">
+  <title>SQL Week 2</title>
+</head>
+
+<body>
+  <h1>SQL Week 2&#8212;further data retrieval and database management techniques
+  </h1>
+
+  <p>Topics covered:</p>
+  <ol>
+    <li>Further data retrieval</li>
+    <li>Database design and management</li>
+    <li>Data modification techniques</li>
+  </ol>
+
+
+  <h2>1. Further data retrieval</h2>
+  <p>
+    In section 4 of the first lesson we used the <code>SELECT</code> statement
+    to retrieve information from the database. However, this just retrieved all
+    of the records from the desired column(s). We might want more specific
+    information from only certain parts and records of the database. There are
+    many different ways we can get different bits of information from a database.
+    Some of those are detailed here.
+  </p>
+
+  <h3>1.1 Selecting distinct entries</h3>
+  <p>
+    In order to return non-repeating values in the result columns we use the
+    <code>DISTINCT</code> clause. The example used in the lesson was to imagine
+    you want to know all of the first names of people in your class. You want to
+    know just what the names themselves are, not how many people are called each
+    name. The following is a table of first names of the people in a class:
+  </p>
+  <table>
+    <tr>
+      <th>first_name</th>
+    </tr>
+    <tr>
+      <td>Sophie</td>
+    </tr>
+    <tr>
+      <td>Shelly</td>
+    </tr>
+    <tr>
+      <td>Hannah</td>
+    </tr>
+    <tr>
+      <td>Joanna</td>
+    </tr>
+    <tr>
+      <td>Sophie</td>
+    </tr>
+    <tr>
+      <td>Hannah</td>
+    </tr>
+  </table>
+  <p>
+    We can use the <code>DISTINCT</code> operator to return the names above but
+    without duplicates. The code to do this is:
+  </p>
+  <code>
+    SELECT DISTINCT table_alias.column_name<br>
+    FROM table_name AS table_alias;
+  </code>
+  <p>The following shows the code that would be used in our example:</p>
+  <code>
+    SELECT DISTINCT cp.first_name<br>
+    FROM class_participants AS cp;
+  </code>
+  <p>And this is what the output would be:</p>
+  <table>
+    <tr>
+      <th>first_name</th>
+    </tr>
+    <tr>
+      <td>Sophie</td>
+    </tr>
+    <tr>
+      <td>Shelly</td>
+    </tr>
+    <tr>
+      <td>Hannah</td>
+    </tr>
+    <tr>
+      <td>Joanna</td>
+    </tr>
+  </table>
+  <p>
+    If <code>SELECT DISTINCT</code> was run on two columns (e.g. first name and
+    last name), then it would return unique <strong>combinations</strong>. So if
+    the two different Hannah's had different last names, the first name "Hannah"
+    would still appear twice in the results.
+  </p>
+
+
+  <h3>1.2 Selecting entries that meet specific conditions</h3>
+  <p>
+    We can apply conditions to the results we want to return so that we only
+    return records than meet specific criteria. One way of doing this is to use
+    the <code>WHERE</code> clause:
+  </p>
+  <code>
+    SELECT table_alias.column_name<br>
+    FROM table_name AS table_alias<br>
+    WHERE table_alias.column_name = "condition";
+  </code>
+  <p>
+    We practiced this in class using a database called <strong>PARTS</strong>,
+    which contains several tables about different projects, their suppliers and
+    the parts that the suppliers are supplying to the different projects. One
+    question we were asked was to return all of the projects that are run in
+    London. This is what the relevant table looks like and is called <strong>
+    project</strong>:
+  </p>
+  <img src="images/project_table.png" alt="Image of a table with three columns.">
+  <p>
+    The following is the code that would be needed to select the project names
+    (which are under the column <strong>jname</strong>) of only the projects
+    that are based in London:
+  </p>
+  <code>
+    SELECT j.jname<br>
+    FROM project AS j<br>
+    WHERE j.city = 'London';
+  </code>
+
+
+  <h2>2. Database design and management</h2>
+
+  <h3>2.1 Constraints</h3>
+  <p>
+    Constraints are rules that can be applied to the columns of a table. They
+    are set when you create the table. When you later add information into the
+    table, if the data you enter does not meet the requirements of the contraint
+    you have added then it will return an error message. In this way, they ensure
+    the <strong>accuracy</strong> and <strong>reliability</strong> of the data
+    in the table.
+  </p>
+  <p>
+    There are several different types of constraint that we can apply to a
+    column in a table. They are documented in the table below.
+  </p>
+  <table>
+    <tr>
+      <th>Constraint</th>
+      <th>Details</th>
+    </tr>
+    <tr>
+      <td><code>PRIMARY KEY</code></td>
+      <td>
+        This is applied to the column that is used to uniquely identify each
+        record in a table. There can only be one primary key in a table but it
+        can be multiple columns, in which case it is known as a <strong>compound
+        key</strong>. The primary key will never change and can be thought of as
+        an index.
+      </td>
+    </tr>
+    <tr>
+      <td><code>FOREIGN KEY</code></td>
+      <td>
+        This restricts the column to contain only the values that are present in
+        the primary key of a different table. In this way, a column that is a
+        foreign key provides a link to another table (the basis of a
+        relational database). There can be multiple foreign keys in a table. The
+        values of the column with a foreign key don't have to be unqiue.
+      </td>
+    </tr>
+    <tr>
+      <td><code>NOT NULL</code></td>
+      <td>
+        This requires a value to be entered for the column to which this
+        constraint is applied.
+      </td>
+    </tr>
+    <tr>
+      <td><code>UNIQUE</code></td>
+      <td>
+        A column with this constraint would require a unique value for each
+        record in the column. It is like a primary key but there can be more
+        than one of these.
+      </td>
+    </tr>
+    <tr>
+      <td><code>CHECK</code></td>
+      <td>
+        This constraint is used to restrict the value that can be entered in a
+        column between a declared range. A check is performed on the entered
+        value before it is stored in the database.
+      </td>
+    </tr>
+    <tr>
+      <td><code>DEFAULT</code></td>
+      <td>This sets a default value for the column, which will be entered for
+      each record unless a value is specified.</td>
+    </tr>
+  </table>
+  <p>
+    Constraints are declared when you create the table (although they can also
+    be declared later on too). The code to assign a constraint when creating a
+    new table can be done in a couple of ways. In this first example, a
+    constraint is declared after the data type:
+  </p>
+  <code>
+    CREATE TABLE table_name (<br>
+    column1, DATA TYPE CONSTRAINT TYPE,<br>
+    column2, DATA TYPE CONTRAINT TYPE,<br>
+    column3, DATA TYPE CONSTRAINT TYPE);
+  </code>
+  <p>
+    In this second example, a constraint is applied after all of the columns
+    have been declared.
+  </p>
+  <code>
+    CREATE TABLE table_name (<br>
+    column1, DATA TYPE,<br>
+    column2, DATA TYPE,<br>
+    column3, DATA TYPE,<br>
+    CONSTRAINT contraint_name CONTRAINT TYPE (column_name)<br>
+    );
+  </code>
+  <p>
+    An example of a table we created in class using this code is shown below. In
+    this example, the constraint <code>NOT NULL</code> is added in-line to the
+    <strong>customer_id</strong> column and the <code>PRIMARY KEY</code>
+    constraint is added at the end to the same column. The name of the <code>
+    PRIMARY KEY</code> constraint is given as <strong>pk_customer_id</strong>.
+  </p>
+  <code>
+    CREATE TABLE customer (<br>
+    customer_id INTEGER NOT NULL,<br>
+    first_name VARCHAR(55),<br>
+    last_name VARCHAR(55),<br>
+    CONSTRAINT pk_customer_id PRIMARY KEY (customer_id)<br>
+    );
+  </code>
+
+  <h3>2.2 Normalisation</h3>
+  <p>
+    Database normalisation is a key aspect of creating a relational database. It
+    is the process of a designing a database so that each independent piece of
+    information only occurs once in the database (except for forgeign keys
+    linking the tables). Each table therefore contains data on one specific
+    topic only, minimising duplicate data, avoiding data modifcation issues and
+    helping to simplify queries.
+  </p>
+
+  <h2>3. Data modification techniques</h2>
+
+  <h3>3.1 Data Definition Language (DDL)</h3>
+
+  <h3>3.2 Core DDL commands</h3>
+
+
+
+</body>
+</html>
