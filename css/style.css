@@ -1,24 +1,50 @@
-/* navbar */
+/* Sunset Colour Scheme:
+#15364E - navy
+#A10E58 - maroon
+#F6C58C - yellow
+#F3A784 - peach
+#F18F7b - salmon
+
+/* Background image */
+html, body {
+  background-image: url("../images/bg.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Yellow background */
  .bg-custom-1 {
-   background-color: #484848;
+   background-color: #F6C58C;
  }
 
- /* footer */
+ /* Peach background */
  .bg-custom-2 {
-   background-color: #CA9C3E;
+   background-color: #F3A784;
  }
 
- /* text */
+/* Salmon background */
+ .bg-custom-3 {
+   background-color: #F18F7B;
+ }
+
+ /* Navy text */
  .text-custom-1 {
-   color: #484848
+   color: #15364E;
  }
 
-/* links */
+/* Links */
 a {
-  color: #484848;
+  color: #ffffff;
 }
 
 a:hover {
-  color: #CA9C3E;
+  color: #15364E;
   text-decoration: none;
+}
+
+/* Navbar */
+.bg-transparent {
+    background:transparent;
 }

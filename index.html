@@ -24,41 +24,66 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
 
-  <title>Coding Cheatsheet</title>
+  <title>Coding Cheat Sheet</title>
 </head>
 
 <body>
-  <h1>Coding Cheatsheet</h1>
 
-  <div class="container p-5">
-    <div class="d-flex flex-row flex-wrap justify-content-around align-content-around">
+    <div class="container p-5 h-100">
 
-      <div class="text-center">
-        <a href="web-dev.html">
-          <i class="fas fa-code fa-10x"></i><br>
-          <h2>Web Development</h2>
-        </a>
-      </div>
+      <!-- NAVBAR -->
+      <nav class="navbar navbar-dark bg-transparent">
+        <a class="navbar-brand" href="#">Robyn's Coding Cheat Sheet</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-      <div class="text-center">
-        <a href="python.html">
-          <i class="fab fa-python fa-10x"></i><br>
-          <h2>Python</h2>
-        </a>
-      </div>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
 
-      <div class="text-center">
-        <a href="sql.html">
-          <i class="fas fa-database fa-10x"></i><br>
-          <h2>SQL</h2>
-        </a>
+      <!-- CONTENT -->
+      <div class="d-flex justify-content-around align-items-center h-100">
+
+        <div class="p-3 text-center">
+          <a href="web-dev/index.html">
+            <i class="fas fa-code fa-10x"></i><br>
+            <h2>Web<br>Development</h2>
+          </a>
+        </div>
+
+        <div class="p-3 text-center">
+          <a href="python/index.html">
+            <i class="fab fa-python fa-10x"></i><br>
+            <h2>Python</h2>
+          </a>
+        </div>
+
+        <div class="p-3 text-center">
+          <a href="sql/index.html">
+            <i class="fas fa-database fa-10x"></i><br>
+            <h2>SQL</h2>
+          </a>
+        </div>
+
       </div>
 
     </div>
   </div>
-
-
-
 </body>
-
 </html>
