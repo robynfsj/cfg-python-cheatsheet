@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Notes from the sixth week of the
+  Introduction to Data Science and SQL Programming course run by Code First
+  Girls. Topics covered include: views, stored procedures, stored functions
+  and triggers.">
+  <meta name="keywords" content="sql, cheatsheet">
+  <link rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+        integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+        crossorigin="anonymous">
+  <title>SQL Week 6</title>
+</head>
+
+<body>
+  <h1>SQL Week 6&#8212;views and stored programs</h1>
+
+  <p>Topics covered:</p>
+  <ol>
+    <li>Views</li>
+    <li>Stored programs (procedures, functions, triggers and events)</li>
+  </ol>
+
+
+  <h2>1. Views</h2>
+  <h3>1.1 Introduction and creating views</h3>
+  <p>
+    Views are tables created with a SQL statement that are stored in a database
+    for quick and easy data retrieval at a later date. You would use one if
+    there was a particular query you find you run frequently in order to save
+    time and effort. A <code>SELECT</code> statement is used to create the table
+    and it is then stored in the database as an <strong>object</strong>.
+    <strong>Nested views</strong> can also be created whereby a view is created
+    based on another view rather than on an original table.
+  </p>
+    Views do not actually store any data themselves so can be though of as a
+    virtual snapshot. They are often referred to as <strong>virtual tables
+    </strong> and the original tables from which the data is retrieved are
+    called <strong>base tables</strong>. A user accessing a view does not
+    automatically get access to the rest of the database and the base tables.
+    This makes them useful if there are certain columns of a database you want
+    to hide from the user.
+  </p>
+  <p>
+    The code to create a view is as follows:
+  </p>
+  <code>
+    CREATE VIEW view_name AS<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;SELECT col1, col2, col3<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;FROM table_name;
+  </code>
+  <p>
+    Here is an example we produced in the lesson:
+  </p>
+  <code>
+    CREATE VIEW vw_sales_staff AS<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;SELECT SalesPerson, SalesAmount<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;FROM sales1;
+  </code>
+  <p>
+    Although we didn't cover this in class, an example in the <em>Learning
+    SQL</em> book (Beaulieu, 2020) shows that you can assign names to the
+    columns in the view:
+  </p>
+  <code>
+    CREATE VIEW customer_vw<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;(customer_id,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;first_name,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;last_name,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;email<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;)<br>
+    AS<br>
+    SELECT<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;customer_id<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;first_name<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;last_name<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;concat(substr(email,1,2), '*****', substr(email, -4)) email<br>
+    FROM customer;
+  </code>
+  <p>
+    In the above example, the column names for the view are given in brackets
+    after the <code>CREATE VIEW</code> statement. The <code>SELECT</code>
+    statement then fetches the relevant information from the <strong>customer
+    </strong> table. Note here than the middle parts of the email address have
+    been redacted from the view. This sort of thing is done for security
+    purposes and is an example of using a view to protect sensitive information
+    from being distributed. An email address in this column would appear as
+    "<code>ro*****.com</code>".
+  </p>
+
+  <h3>1.2 Updating views</h2>
+    <p>
+      Once a view is created, it can be treated as a table. Data can be modified
+      and new records can be inserted into it using <code>UPDATE</code> or
+      <code>INSERT</code> statements. Updating a view in this way directly
+      modifies the underlying database and not just the view. This is useful if
+      someone has been given a view without access to the underlying database
+      but wants to add new records to the database. Their new records will
+      officially enter the actual database (and not just the view) without
+      having to give them full access to a database full of potentially
+      sensitive information. There are numerous restrictions, however, on the
+      types of statements you can use to modify a view. A view can't be updated
+      if it contains any of the following:
+    </p>
+    <ul>
+      <li>Aggregate functions (SUM(),MIN(),MAX(), and others)</li>
+      <li><code>DISTINCT</code></li>
+      <li><code>GROUP BY</code></li>
+      <li><code>HAVING</code></li>
+      <li><code>UNION</code> or <code>UNION ALL</code></li>
+      <li>Subquery in the select list</li>
+      <li>Certain types of joins</li>
+      <li>Non updatable view in the FROM clause (applied restriction)</li>
+      <li>A subquery in the <code>WHERE</code> clause that refers to a table in
+        the <code>FROM</code> clause</li>
+      <li>Refers only to literal values (literal strings are enclosed in single
+        or double quotation marks)</li>
+      <li>Multiple references to any column of a base table</li>
+    </ul>
+    <p>
+      As a simple view is updateable, it is possible for someone to update the
+      data in the base tables that is not actually a part of the view or to
+      update the data so that something that was in the view is no longer part
+      of the view. An update like this makes the view inconsistent and is not
+      desirable. To avoid this type of thing happening, we can use a <code>WITH
+      CHECK OPTION</code>. This prevents a user from updating or inserting data
+      into the base tables that would not appear in the view. <code>WITH CHECK
+      OPTION</code> is added to the end of the <code>CREATE VIEW</code> code.
+      Here is an example from the lesson:
+    </p>
+    <code>
+      CREATE OR REPLACE VIEW vw_staff_common2 AS<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;SELECT<BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;employeeID,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;firstName,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lastName,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jobTitle,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;managerID,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;department<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;FROM<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;staff<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;WHERE<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jobTitle LIKE '%DB%'<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;WITH CHECK OPTION;
+    </code>
+    <p>
+      In this example, if we try to add a new employee that would not appear in
+      the view (i.e. an employee with a job title that does not contain the
+      letters "DB"), then an error is returned and the record is not added. If
+      the employee matches the desired criteria then the record is added to the
+      database and the view is updated so that the new record also appears in
+      the view.
+    </p>
+
+
+  <h2>2. Stored programs</h2>
+  <p>There are four types of stored programs:</p>
+  <ul>
+    <li>Stored functions</li>
+    <li>Stored procedures</li>
+    <li>Triggers</li>
+    <li>Events</li>
+  </ul>
+
+  <h3>2.1 Stored functions and procedures (stored routines)</h3>
+  <h4>Stored functions</h4>
+  <p>
+    Stored functions and procedures contain written code that is saved in order
+    for it to be used over and over again without having to type it out each
+    time. They are stored as objects in the database.
+  </p>
+  <p>
+    Stored functions, sometimes referred to as User Defined Functions (UDF) to
+    avoid confusion with the built-in functions, contain SQL statements that
+    return a single value. They are run in a similar way to the built-in
+    functions. They can be used inside <code>SELECT</code> statements to return
+    a single value. They can't modify or change anything in the database so can't
+    execute <code>INSERT</code>, <code>UPDATE</code> or <code>DELETE</code>
+    statements.
+  </p>
+  <p>
+    The code to create a stored function is shown below. A key feature of this
+    code is that a delimiter is set. This is so that there is a distinction
+    between the end of statements within the function to be stored (for which
+    the usual ; symbol can still be used) and the end of the actual statement
+    that is creating the function (for which // is used). A function name must
+    also be declared. This can't be the same as any of the built-in functions.
+    Function parameters are also declared along with their data types. These can
+    be thought of as the input arugments you are using when you call the
+    function. You then have to declare the start and end of the function with a
+    <code>BEGIN</code> keyword and an <code>END</code> keyword. The SQL queries
+    that make up the function can be of any level of complexity and can include
+    joins, filters and other elements.
+  </p>
+  <code>
+      DELIMITER//<br>
+      CREATE FUNCTION function_name(function_parameter1 DATA TYPE)<br>
+      RETURNS DATA TYPE<br>
+      <br>
+      BEGIN<br>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;function body;<br>
+      <br>
+      RETURN expression;<br>
+      END//
+  </code>
+  <p>
+    It can be a bit more difficult than you first think to write a function.
+    Although the one we went through in class was easy to read through and to
+    see how it worked, I found it a lot more difficult writing a function from
+    scratch myself for homework. The following is the function I wrote for the
+    homework. I decided to use a database table containing the total sales
+    amounts for each sales person. I decided they would each get 2% commission
+    and would create a stored function to calculate this. My experience on the
+    Python course definitely came in useful for understanding how functions work
+    in SQL!
+  </p>
+  <code>
+    DELIMITER //<br>
+    CREATE FUNCTION commission(input_amount DECIMAL(4,2))<br>
+    RETURNS DECIMAL(4,2)<br>
+    DETERMINISTIC<br>
+    BEGIN<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;DECLARE output_amount DECIMAL(4,2);<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;SET output_amount = 2 / 100 * input_amount;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;RETURN output_amount;<br>
+    END//<br>
+    DELIMITER ;<br>
+  </code>
+  <p>To call the stored function, I then used  the following code:</p>
+  <code>
+    SELECT<br>
+	  &nbsp;&nbsp;&nbsp;&nbsp;SalesPerson,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;SalesAmount,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;commission(SalesAmount) AS CommissionAmount<br>
+    FROM sales1;
+  </code>
+  <p>And this is what the output looked like:</p>
+  <img src="../images/stored-func-out.png" alt="Screenshot of a table showing
+  sales people, their total sales amount and their commission amount.">
+
+  <h4>Stored procedures</h4>
+  <p>
+    Stored procedures contain SQL statements that are used to read and modify
+    data. They are typically used for data validation and access control methods.
+    Unlike functions (and as demonstrated in the previous example) they can't be
+    used inside <code>SELECT</code> statements. However, they can use <code>
+    INSERT</code>, <code>UPDATE</code>, <code>DELETE</code> and <code>SELECT
+    </code> statements.
+  </p>
+  <p>
+    The syntax used to create a procedure is similar to that used for creating
+    a function:
+  </p>
+  <code>
+    DELIMITER //
+    CREATE PROCEDURE proc_name()<br>
+    BEGIN<br>
+    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;procedure body;<br>
+    <br>
+    END//<br>
+    DELIMITER ;
+  </code>
+  <p>
+    Calling a prodecure is different to calling a function. You can't include a
+    procedure in a <code>SELECT</code> statement. You do it using the following
+    syntax:
+  </p>
+  <code>CALL procedure_name();</code>
+  <p>
+    Again we read through a procedure in class and had to write one from scratch
+    for homework. I decided to write one that would return the names of all of
+    the products sold in a bakery. This is how I did it:
+  </p>
+  <code>
+    DELIMITER //<br>
+    CREATE PROCEDURE all_products()<br>
+    BEGIN<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;SELECT sw.item_name FROM sweet AS sw<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;UNION<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;SELECT sa.item_name FROM savoury AS sa<br>
+    END//<br>
+    DELIMITER ;
+  </code>
+  <p>I then ran the following to run the procedure:</p>
+  <code>CALL all_products()</code>
+  <p>This returned these results:</p>
+  <img src="../images/stored-proc-out.png" alt="Screenshot of a table containing
+  one column called item_name and containing a list of products sold in a
+  bakery.">
+
+  <h3>2.2 Triggers</h3>
+  <p>
+    Triggers are blocks of code that run automatically when a DML operation like
+    <code>INSERT</code>, <code>UPDATE</code> or <code>DELETE</code> is run. The
+    execution of a trigger is often referred to as <strong>trigger firing</strong>.
+    Triggers can fire before or after the operation is run. The main purpose of
+    using a trigger is to maintain data consistency and integrity. For example,
+    you could create a trigger that will format the capitalisation of a new
+    record so that the capitalisation is consistent for every record in a table
+    (this is the example we ran through in class).
+  </p>
+  <p>
+    The following syntax is used to create a trigger. You need to choose if you
+    want to use the before or after keyword, which will specify whether the
+    trigger fires before or after the event. You then need to specify the
+    operation that will fire the trigger (<code>INSERT</code>, <code>UPDATE
+    </code> or <code>DELETE</code>). The <code>FOR EACH ROW</code> clause creates
+    a row level trigger that fires for each row. <code>NEW</code> and <code>OLD
+    </code> keywords can be used in the trigger body to represent the old and
+    new values to be inserted/updated/deleted (not shown below).
+  </p>
+  <code>
+    DELIMITER //<br>
+    CREATE TRIGGER trigger_name<br>
+    BEFORE/AFTER INSERT/UPDATE/DELETE ON table_or_view_name<br>
+    FOR EACH ROW<br>
+    BEGIN<br>
+    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;trigger body;<br>
+    <br>
+    END//<br>
+    DELIMITER ;
+  </code>
+
+
+
+</body>
+</html>
