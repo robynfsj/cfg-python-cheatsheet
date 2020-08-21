@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Notes from the seventh week of the
+  Introduction to Data Science and SQL Programming course run by Code First
+  Girls. Topics covered include: backup and restore, data import and export
+  and database diagrams.">
+  <meta name="keywords" content="sql, cheatsheet">
+  <link rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+        integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+        crossorigin="anonymous">
+  <title>SQL Week 7</title>
+</head>
+
+<body>
+  <h1>SQL Week 7&#8212;backup/restore and data import/export</h1>
+
+  <p>Topics covered:</p>
+  <ol>
+    <li>Backup and restore</li>
+    <li>Data import and export</li>
+  </ol>
+
+  <h2>1. Backup and restore</h2>
+
+  <h3>1.1 Using MySQL from the command line</h3>
+  <p>
+    Backing up a database is done from the command line (also known as the
+    shell). Before learning how to back up a database, it is a good idea to
+    become familiar with using this. As a note for myself, it is worth
+    mentioning that the Learning SQL book (Beaulieu, 2020) that I am reading
+    alongside the course contains MySQL examples that are all run from the
+    command line rather than from the workbench.
+  </p>
+  <p>
+    All of this information here is relevant for a Mac. The command line is
+    accessed by the Terminal application:
+  </p>
+  <img src="../images/terminal.png" alt="Image of the Terminal application icon
+  on a Mac.">
+  <p>
+    To run MySQL in the terminal, you need to get the terminal to run this file:
+  </p>
+  <code>/usr/local/mysql-8.0.20-macos10.15-x86_64/bin/mysql</code>
+  <p>
+    The path shown above is just where it is on my computer, it might be
+    different for someone else. It is also worth noting that an alias has been
+    placed in the local folder so that you can just use the following path which
+    removes that awkwardly named folder in the middle:
+  </p>
+  <code>/usr/local/mysql/bin/mysql</code>
+  <p>
+    Because you have a user name and password to access the server, just running
+    that path from the command line won't work as it will be trying to access a
+    file that is protected. You need to add a bit more on to the end of the path
+    as shown here:
+  </p>
+  <code>/usr/local/mysql/bin/mysql -u root -p</code>
+  <p>
+    The username here is <strong>root</strong> but you would just put whatever
+    your username is in here. When you press enter and run this code, the
+    command line will request your password. When I type mine in it doesn't look
+    like it's doing anything at all. But typing the password then pressing enter
+    does the job. This is what the terminal window should look like once this
+    has all been done correctly:
+  </p>
+  <img src="../images/mysql-command-line.png" alt="Screenshot of the terminal
+  showing the mysql> prompt, which indicates MySQL is ready to work.">
+  <p>
+    Once the above is complete, MySQL will be running in the command line and
+    you can type queries out just as you would in the workbench. As you only
+    have the command line and no nice user interface, there are a few statements
+    that are particularly useful.
+  </p>
+  <table>
+    <tr>
+      <th>Statement</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td><code>SHOW DATABASES;</code></td>
+      <td>Lists all the databases on the server.</td>
+    </tr>
+    <tr>
+      <td><code>SHOW FULL TABLES;</code></td>
+      <td>
+        Shows a list of the tables present in the current database (after you
+        have told it which database to use with <code>USE database_name;</code>).
+      </td>
+    </tr>
+    <tr>
+      <td><code>DESC table_name;</code></td>
+      <td>Shows a list of the columns in the table.</td>
+    </tr>
+    <tr>
+      <td><code>SELECT database();</code></td>
+      <td>This tells you which database is currently in use.</td>
+    </tr>
+  </table>
+  <p>
+    Once you are done with using MySQL, you can tell it close by typing <code>
+    exit</code>. The next line that comes up will be the normal command line,
+    rather than a <code>mysql></code> prompt.
+  </p>
+  <p>
+    The bin folder contains lots of other files related to MySQL that you might
+    want to use at some point during your session, including the file that is
+    used to create a backup in the following section. It might be easier to
+    change the current working directory in the command line to that folder when
+    you first start in the command line so that you aren't having to type out
+    long paths. To do this, use the following code where <code>cd</code> just
+    means <em>change directory</em>. You would then use the second line of code
+    shown below to run MySQL, after which it will ask you for your password. For
+    some reason that I did look into but don't want to bother myself with at the
+    moment, you must include the <code>./</code> at the start of the second line
+    to indicate that the file is in the current directory. Leaving it out just
+    doesn't work.
+  </p>
+  <code>
+    cd /usr/local/mysql/bin<br>
+    ./mysql -u root -p
+  </code>
+  <p>
+    <code>usr</code> is a hidden folder so it might not be easy to find straight
+    away. To quickly toggle show/hide hidden files/folders in file explorer
+    (should you be wanting to check this is where your MySQL files actually are)
+    press <code>SHIFT + CMD + .</code> at the same time.
+  </p>
+
+  <h3>1.2 Creating a backup</h3>
+  <p>
+    Now that we know how to use the command line, we can easily create a backup.
+    All we do is run the <code>mysqldump</code> file from the command line and
+    provide it with a bit of extra information. This can be done with the code
+    shown below.
+  </p>
+  <code>
+    /usr/local/mysql/bin/mysqldump -u root -p database_name &gt/usr/local/mysql/
+    backups/database_nameBackup
+  </code>
+  <p>
+    The first part of this is the path to the <code>mysqldump</code> file. If
+    you have changed the working directory then you would just provide the
+    appropriate path to the <code>mysqldump</code> file from your current
+    directory. You then provide the username and password (in this case you are
+    asked for the password after you have run this line of code). You then need
+    to tell it which database you are wanting to back up. The final part of this
+    code is a path to the directory where you want to save the backup. I had
+    created a folder in the mysql folder called backups so that I have one place
+    to keep them all together but you could save it anywhere.
+  </p>
+
+  <h3>1.3 Restoring from a backup</h3>
+  <p>
+    It is good to test your backup by restoring it on a test server or another
+    machine. The restore is done from the original <code>mysql</code> file we
+    used in section 1.1 above. I didn't want to mess around with creating a test
+    server as I don't know how to do this. So I changed the bakery database that
+    we have been using in class by adding in a couple of new entries into the
+    savoury table and then tried to restore it to the backup I made before the
+    changes in order to check that the backup and restore had worked. Happily
+    it did work! The code I used is shown below:
+  </p>
+  <code>
+    cd /usr/local/mysql/bin<br>
+    ./mysql -u root -p bakery &lt;../backups/bakeryBackup
+  </code>
+  <p>
+    It would also work with the following if you haven't changed the current
+    directory:
+  </p>
+  <code>
+    /usr/local/mysql/bin/mysql -u root -p bakery &lt;/usr/local/mysql/backups/
+    bakeryBackup
+  </code>
+
+
+  <h2>2. Data import and export</h2>
+
+  <h3>2.1 Data import</h3>
+
+  <h3>2.2 Data export</h3>
+  <p>
+    You can export a table or view easily in the workbench as a <code>.csv</code>
+    file.
+  </p>
+
+</body>
+</html>
