@@ -85,7 +85,25 @@
     skills. The following is the paragraph I have written for this task:
   </p>
   <p>
-    MY PARAGRAPH GOES HERE
+    I got into coding through my PhD when I undertook a module on statistics
+    using R. I also did a data analysis project for the CFG Python course so I
+    am interested in data analyst careers. I imagine this type of job involves
+    being given some data to work on, wrangling the data into a workable format,
+    exploring the data and extracting useful information out of the data through
+    statistical analysis before visualising the data and presenting it back to
+    the people who gave you the data at the end. I assume that SQL comes into
+    this at the start and end of this process to extract just the data you are
+    interested in out of a large data set and that you would use Python or R for
+    the actual data analysis part. Having completed and enjoyed the CFG web dev.
+    course I would also be interested in software/web development. I just loved
+    using Python so much so definitely want to work on the backend so either
+    backend development or full stack. In these roles, the databases would be
+    used to store the data that the website or software application reads and
+    writes from/to. After the CFG web dev course I tried to build a website for
+    my partner containing a birthday holiday itinerary but I wanted to put a
+    username and password on it so that the whole world couldn't see our plans.
+    I didn't have the knowledge or skills to do this and I think this is where a
+    database would come in to the website.
   </p>
 
 
@@ -244,10 +262,10 @@
   <p>Here is an example of this query in action:</p>
   <code>
     SELECT<br>
-    column1,<br>
-    column2<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;column1,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;column2<br>
     FROM<br>
-    table1;
+    &nbsp;&nbsp;&nbsp;&nbsp;table1;
   </code>
 
   <h3>4.2 Qualify the column name with a table name</h3>
@@ -263,10 +281,10 @@
   </p>
   <code>
     SELECT<br>
-    table1.column1,<br>
-    table1.column2<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;table1.column1,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;table1.column2<br>
     FROM<br>
-    table1;
+    &nbsp;&nbsp;&nbsp;&nbsp;table1;
   </code>
 
   <h3>4.3 Using aliases</h3>
@@ -283,10 +301,10 @@
   </p>
   <code>
     SELECT<br>
-    t1.column1 AS c1,<br>
-    t1.column2 AS c2<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;t1.column1 AS c1,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;t1.column2 AS c2<br>
     FROM<br>
-    table1 AS t1;
+    &nbsp;&nbsp;&nbsp;&nbsp;table1 AS t1;
   </code>
 
   <h3>4.4 The wildcard</h3>
@@ -297,8 +315,7 @@
     to save for future use. The following shows how you would use it in a query:
   </p>
   <code>
-    SELECT *<br>
-    FROM table1
+    SELECT * FROM table1;
   </code>
 
 
@@ -326,10 +343,11 @@
     used to create a table:
   </p>
   <code>
-    CREATE TABLE table_name<br>
-    (column1 DATA TYPE,<br>
-    column2 DATA TYPE,<br>
-    column3 DATA TYPE);
+    CREATE TABLE table_name(<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;column1 DATA TYPE,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;column2 DATA TYPE,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;column3 DATA TYPE<br>
+    );
   </code>
 
   <h3>5.3 Null values</h3>
@@ -344,10 +362,11 @@
     entry for the first column, an error would be returned.
   </p>
   <code>
-    CREATE TABLE table_name<br>
-    (column1 DATA TYPE NOT NULL,<br>
-    column2 DATA TYPE,<br>
-    column3 DATA TYPE);
+    CREATE TABLE table_name(<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;column1 DATA TYPE NOT NULL,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;column2 DATA TYPE,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;column3 DATA TYPE<br>
+    );
   </code>
 
   <h3>5.4 Populating tables</h3>
@@ -382,9 +401,9 @@
     <br>
     -- Create  table to contain details of the sweet products.<br>
     CREATE TABLE sweet(<br>
-    id INT NOT NULL,<br>
-    item_name VARCHAR(50) NOT NULL,<br>
-    price FLOAT(2) NOT NULL<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;id INT NOT NULL,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;item_name VARCHAR(50) NOT NULL,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;price FLOAT(2) NOT NULL<br>
     );<br>
     <br>
     -- Populate the sweet table.<br>
@@ -400,10 +419,10 @@
     <br>
     -- Create a table for the savoury products.<br>
     CREATE TABLE savoury(<br>
-    id INT NOT NULL,<br>
-    item_name VARCHAR(50) NOT NULL,<br>
-    price FLOAT(2),<br>
-    main_ingredient VARCHAR(50)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;id INT NOT NULL,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;item_name VARCHAR(50) NOT NULL,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;price FLOAT(2),<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;main_ingredient VARCHAR(50)<br>
     );<br>
     <br>
     -- Populate the savoury table.<br>
