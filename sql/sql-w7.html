@@ -181,12 +181,64 @@
   <h2>2. Data import and export</h2>
 
   <h3>2.1 Data import</h3>
+  <p>
+    We didn't cover reading data into SQL (e.g. from a csv file) in this week's
+    lesson. It does, however, mention we should be doing this on one of the
+    slides. So I have looked up some resources online to find out how to do
+    this. There seems to be a way to do it with some code from the command line
+    or a more user-friendly way with the MySQL workbench.
+  </p>
+  <h4>Code</h4>
+  <p>
+    I had a go at this during my course project. I obtained some customer
+    details data from an online data generator and wanted to import this data
+    into my database from csv files. In order to do this you need to make sure
+    that you have created a table with the same columns as the csv. I tried to
+    import addresses into my customer_addresses using the following code:
+  </p>
+  <code>
+    LOAD DATA INFILE '/usr/local/mysql/im-ex-files/addresses.csv'<br>
+    INTO TABLE customer_addresses<br>
+    FIELDS TERMINATED BY ','<br>
+    ENCLOSED BY '"'<br>
+    LINES TERMINATED BY '\n'<br>
+    IGNORE 1 ROWS;
+  </code>
+  <p>
+    However, I kept getting the following error:
+  </p>
+  <code>
+    Error Code: 1290. The MySQL server is running with the --secure-file-priv
+    option so it cannot execute this statement
+  </code>
+  <p>
+    I looked into this and it seems to be in place for database security. You
+    can only import data into the database from a specified directory that would
+    have been set up when you install MySQL. However, when I check where this
+    directory is (using <code>SHOW VARIABLES LIKE "secure_file_priv";</code>)
+    there doesn't seem to be one set up. I did look into how I could set this up
+    but it became too time consuming so I gave up on this for now and decided to
+    just use the workbench import wizard for my project this time.
+  </p>
+  <h4>Workbench</h4>
+  <p>
+    In the workbench, if you right click on the table you want to populate with
+    data, you will see an option to open the <strong>Table data import wizard
+    </strong>. You can just follow the steps through this to import the data
+    easily. You will need to make sure you select the right options such as the
+    delimiter that matched the one in your csv file.
+  </p>
 
   <h3>2.2 Data export</h3>
   <p>
-    You can export a table or view easily in the workbench as a <code>.csv</code>
-    file.
+    After the fiasco of trying to import data using code, I didn't bother trying
+    to export using code. You can export a table or view easily in the workbench
+    as a csv file from the section of the workbench circled in pink on the image
+    below.
   </p>
+  <img src="../images/sql-data-export.png" alt="Screenshot of the MySQL
+  workbench showing the section of the workbench where there is an option to
+  export data as a csv file.">
 
 </body>
 </html>
