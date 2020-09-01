@@ -73,13 +73,17 @@
     without duplicates. The code to do this is:
   </p>
   <code>
-    SELECT DISTINCT table_alias.column_name<br>
-    FROM table_name AS table_alias;
+    SELECT DISTINCT<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;table_alias.column_name<br>
+    FROM<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;table_name AS table_alias;
   </code>
   <p>The following shows the code that would be used in our example:</p>
   <code>
-    SELECT DISTINCT cp.first_name<br>
-    FROM class_participants AS cp;
+    SELECT DISTINCT<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;cp.first_name<br>
+    FROM<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;class_participants AS cp;
   </code>
   <p>And this is what the output would be:</p>
   <table>
@@ -114,9 +118,12 @@
     the <code>WHERE</code> clause:
   </p>
   <code>
-    SELECT table_alias.column_name<br>
-    FROM table_name AS table_alias<br>
-    WHERE table_alias.column_name = "condition";
+    SELECT<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;table_alias.column_name<br>
+    FROM<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;table_name AS table_alias<br>
+    WHERE<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;table_alias.column_name = "condition";
   </code>
   <p>
     We practiced this in class using a database called <strong>PARTS</strong>,
@@ -133,9 +140,12 @@
     that are based in London:
   </p>
   <code>
-    SELECT j.jname<br>
-    FROM project AS j<br>
-    WHERE j.city = 'London';
+    SELECT<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;j.jname<br>
+    FROM<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;project AS j<br>
+    WHERE<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;j.city = 'London';
   </code>
 
 
@@ -216,9 +226,10 @@
   </p>
   <code>
     CREATE TABLE table_name (<br>
-    column1, DATA TYPE CONSTRAINT TYPE,<br>
-    column2, DATA TYPE CONTRAINT TYPE,<br>
-    column3, DATA TYPE CONSTRAINT TYPE);
+    &nbsp;&nbsp;&nbsp;&nbsp;column1, DATA TYPE CONSTRAINT TYPE,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;column2, DATA TYPE CONTRAINT TYPE,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;column3, DATA TYPE CONSTRAINT TYPE<br>
+    );
   </code>
   <p>
     In this second example, a constraint is applied after all of the columns
@@ -226,9 +237,9 @@
   </p>
   <code>
     CREATE TABLE table_name (<br>
-    column1, DATA TYPE,<br>
-    column2, DATA TYPE,<br>
-    column3, DATA TYPE,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;column1, DATA TYPE,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;column2, DATA TYPE,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;column3, DATA TYPE,<br>
     CONSTRAINT contraint_name CONTRAINT TYPE (column_name)<br>
     );
   </code>
@@ -241,9 +252,9 @@
   </p>
   <code>
     CREATE TABLE customer (<br>
-    customer_id INTEGER NOT NULL,<br>
-    first_name VARCHAR(55),<br>
-    last_name VARCHAR(55),<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;customer_id INTEGER NOT NULL,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;first_name VARCHAR(55),<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;last_name VARCHAR(55),<br>
     CONSTRAINT pk_customer_id PRIMARY KEY (customer_id)<br>
     );
   </code>
@@ -252,19 +263,166 @@
   <p>
     Database normalisation is a key aspect of creating a relational database. It
     is the process of a designing a database so that each independent piece of
-    information only occurs once in the database (except for forgeign keys
+    information only occurs once in the database (except for the forgeign keys
     linking the tables). Each table therefore contains data on one specific
     topic only, minimising duplicate data, avoiding data modifcation issues and
     helping to simplify queries.
   </p>
+  <p>
+    Understanding normalisation is harder than it appears at first. Although the
+    basic idea is easy to get to grips with, when you try to do it yourself you
+    end up (or I did at least) wondering how far to split different columns into
+    new tables and how many to group together. The degree of normalisation that
+    you go for should fit into one of the several different types of
+    normalisation technique. Each one of these has a set of rules that defines
+    it. We were given a homework task of reading about these different types.
+  </p>
+  <p>
+    The different normalisation techniques are called database normal forms. The
+    following is a list of the different ones that are used:
+  </p>
+  <ul>
+    <li>1NF (First Normal Form)</li>
+    <li>2NF (Second Normal Form)</li>
+    <li>3NF (Third Normal Form)</li>
+    <li>BCNF (Boyce-Codd Normal Form)</li>
+    <li>4NF (Fourth Normal Form)</li>
+    <li>5NF (Fifth Normal Form)</li>
+    <li>6NF (Sixth Normal Form)</li>
+  </ul>
+  <p>
+    The first normal form is the least normalised of the forms while the sixth
+    is the most normalised. The theory of database normalisation in SQL is still
+    being developed. However, for most purposes you would only need to normalise
+    to the third normal form. I will briefly cover the first three forms here.
+  </p>
+
+  <h4>1NF</h4>
+  <p>
+    This has the smallest degree of normalisation. There are only two rules for
+    1NF:
+  </p>
+  <ul>
+    <li>Each table cell should contain a single value.</li>
+    <li>Each record (i.e. row) needs to be unique.</li>
+  </ul>
+  <p>
+    In 1NF, the primary key can be a compound key, i.e. it can comprise of two
+    columns. For example, you might have two people with the same name in the
+    table who live at two different addresses. To uniquely identify a record in
+    this situation, you wouldn't be able to use only their name, you would
+    require their address as well.
+
+  <h4>2NF</h4>
+  <p>
+    2NF is the same as 1NF except the primary key must be a single column. This
+    is usually done by using an id column. The rules for 2NF are therefore:
+  </p>
+  <ul>
+    <li>Be in 1NF.</li>
+    <li>Single column primary key.</li>
+  </ul>
+
+  <h4>3NF</h4>
+  <p>
+    3NF is apparently what you should aim for with your database. To satisfy the
+    third normal form, your database must be in 2NF but must also not contain any
+    transistive functional dependencies. These are when values in one column of
+    a table are dependent on a value in another column of the same table. There
+    was an example of this in my project. I had a table containing information
+    about different cabins that people could book to stay in on a holiday
+    retreat. The table contained information about whether the cabin had a hot
+    tub, the cabin capacity and what type of view there was from the cabin.
+    However, it also had a column containing nightly rates but these depended on
+    the contents of the other columns. For example, if a cabin got a hot tub
+    then the nightly rate would increase. Therefore I moved the nightly rates
+    into a different table. The rules for 3NF are therefore:
+  </p>
+  <ul>
+    <li>Be in 2NF.</li>
+    <li>Have no transistive functional dependencies.</li>
+  </ul>
+
 
   <h2>3. Data modification techniques</h2>
+  <p>
+    The last section of this lesson covered the different categories of SQL
+    commands and how you can use some of the commands to modify the data and the
+    database.
+  </p>
 
-  <h3>3.1 Data Definition Language (DDL)</h3>
+  <h3>Data Definition Language (DDL)</h3>
+  <p>
+    DDL consists of SQL statements that are used to create and modify the
+    structure of a database, its objects and tables. The following table lists
+    some of the core DDL commands and what they do.
+  </p>
+  <table>
+    <tr>
+      <th>DDL command</th>
+      <th>Details</th>
+    </tr>
+    <tr>
+      <td><code>CREATE</code></td>
+      <td>Used to create a database or its objects (e.g. tables, functions).</td>
+    </tr>
+    <tr>
+      <td><code>ALTER</code></td>
+      <td>
+        Used to change an existing object, e.g. change column data type, add/
+        remove column, change column constraints.
+      </td>
+    </tr>
+    <tr>
+      <td><code>DROP</code></td>
+      <td>
+        Remove objects and data from the database. Will respond with an error if
+        you try to drop a column that is a foreign key. Be careful with this
+        one!
+      </td>
+    </tr>
+    <tr>
+      <td><code>RENAME</code></td>
+      <td>Rename an existing object in the database.</td>
+    </tr>
+  </table>
 
-  <h3>3.2 Core DDL commands</h3>
-
-
+  <h3>Data Manipulation Language (DML)</h3>
+  <p>
+    DML commands handle the manipulation of data and are the most commonly
+    used commands. We have seen most of these already:
+  </p>
+  <table>
+    <tr>
+      <th>DML command</th>
+      <th>Details</th>
+    </tr>
+    <tr>
+      <td><code>SELECT</code></td>
+      <td>
+        Can also be considered part of Data Query Language (DQL). Used to
+        retrieve data from the database.
+      </td>
+    </tr>
+    <tr>
+      <td><code>INSERT</code></td>
+      <td>Inserts data into a table.</td>
+    </tr>
+    <tr>
+      <td><code>UPDATE</code></td>
+      <td>
+        Used to modify columns in a single table. Used with the <code>SET</code>
+        keyword and the <code>WHERE</code> clause.
+      </td>
+    </tr>
+    <tr>
+      <td><code>DELETE</code></td>
+      <td>
+        Deletes one or more rows in a table. It is permanent so be careful. Use
+        the <code>WHERE</code> clause!
+      </td>
+    </tr>
+  </table>
 
 </body>
 </html>
